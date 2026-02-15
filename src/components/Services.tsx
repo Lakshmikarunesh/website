@@ -1,72 +1,90 @@
 import React from 'react';
-import { Code, Palette, Smartphone, Layers, Video, Share2 } from 'lucide-react';
-import ServiceCard from './ServiceCard';
-
-const services = [
-  {
-    icon: <Code size={32} />,
-    title: 'Web Development',
-    description: 'Building robust and scalable web applications using cutting-edge technologies.',
-    gradient: 'from-blue-500 to-purple-500',
-  },
-  {
-    icon: <Palette size={32} />,
-    title: 'UI/UX Design',
-    description: 'Creating intuitive and engaging user experiences that delight your customers.',
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    icon: <Smartphone size={32} />,
-    title: 'App Development',
-    description: 'Developing native and cross-platform mobile applications for iOS and Android.',
-    gradient: 'from-pink-500 to-red-500',
-  },
-  {
-    icon: <Layers size={32} />,
-    title: 'Branding',
-    description: 'Crafting unique brand identities that make your business stand out.',
-    gradient: 'from-red-500 to-orange-500',
-  },
-  {
-    icon: <Video size={32} />,
-    title: 'Video Production',
-    description: 'Creating high-quality video content that tells your brand story effectively.',
-    gradient: 'from-orange-500 to-yellow-500',
-  },
-  {
-    icon: <Share2 size={32} />,
-    title: 'Social Media',
-    description: 'Strategic social media management to boost your brand presence and engagement.',
-    gradient: 'from-yellow-500 to-green-500',
-  },
-];
+import { Code, Palette, Smartphone, Layers, Bot, Globe, ArrowUpRight } from 'lucide-react';
+import Section from './Section';
+import BentoGrid from './BentoGrid';
+import BentoCard from './BentoCard';
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+    <Section id="services" className="bg-black relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+      <div className="mb-20">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 font-playfair text-center">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
+            Our Expertise
+          </span>
+        </h2>
+        <p className="text-gray-400 max-w-2xl mx-auto text-lg text-center">
+          We combine creative design with technical excellence to deliver robust digital solutions.
+        </p>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Our Services
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            We offer a comprehensive range of digital services to help your business thrive in the modern world.
-          </p>
-        </div>
+      <BentoGrid>
+        {/* Large Web Dev Card - Spans 4 columns */}
+        <BentoCard
+          title="Web Development"
+          description="High-performance websites built with React, Next.js, and modern frameworks. We focus on speed, SEO, and scalability."
+          icon={<Code />}
+          className="md:col-span-4 min-h-[300px]"
+        // image="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=1000"
+        >
+          <div className="absolute bottom-0 right-0 p-8 opacity-10 group-hover:opacity-30 transition-opacity">
+            <Code size={120} />
+          </div>
+        </BentoCard>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
-          ))}
-        </div>
-      </div>
-    </section>
+        {/* UI/UX Card - Spans 2 columns */}
+        <BentoCard
+          title="UI/UX Design"
+          description="Intuitive interfaces that guide users and convert visitors into customers."
+          icon={<Palette />}
+          className="md:col-span-2 min-h-[300px] bg-gradient-to-br from-purple-900/10 to-transparent"
+        />
+
+        {/* App Dev Card - Spans 3 columns */}
+        <BentoCard
+          title="App Development"
+          description="Native and cross-platform mobile apps for iOS and Android using React Native and Flutter."
+          icon={<Smartphone />}
+          className="md:col-span-3 min-h-[250px]"
+        />
+
+        {/* Branding Card - Spans 3 columns */}
+        <BentoCard
+          title="Branding & Identity"
+          description="Complete brand systems including logos, typography, and visual guidelines."
+          icon={<Layers />}
+          className="md:col-span-3 min-h-[250px]"
+        />
+
+        {/* AI Solutions - Spans 6 columns (Full width) */}
+        <BentoCard
+          title="AI & Machine Learning Solutions"
+          description="Leverage the power of AI to automate workflows, analyze data, and create intelligent user experiences. We integrate OpenAI, Claude, and custom models."
+          icon={<Bot />}
+          className="md:col-span-6 min-h-[250px] border-purple-500/20"
+        >
+          <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden md:block">
+            <div className="flex gap-4">
+              {/* Visual decorative elements for AI */}
+              <div className="w-16 h-16 rounded-full bg-purple-500/20 animate-pulse flex items-center justify-center">
+                <Bot className="text-purple-400" />
+              </div>
+              <div className="w-16 h-16 rounded-full bg-blue-500/20 animate-pulse delay-700 flex items-center justify-center">
+                <Zap className="text-blue-400" />
+              </div>
+            </div>
+          </div>
+        </BentoCard>
+      </BentoGrid>
+    </Section>
   );
 };
+
+// Start Icon helper need import
+import { Zap } from 'lucide-react';
 
 export default Services;

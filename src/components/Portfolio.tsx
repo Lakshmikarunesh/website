@@ -1,52 +1,112 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import ProjectCard from './ProjectCard';
+import { ArrowUpRight } from 'lucide-react';
+import Section from './Section';
+import BentoGrid from './BentoGrid';
 
 const projects = [
   {
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    title: 'EcoTech Platform',
-    category: 'Web Development',
-    description: 'A sustainable technology platform for environmental monitoring.',
+    image: 'https://res.cloudinary.com/dmip7daqc/image/upload/v1771151187/Screenshot_2026-02-15_155556_h6szkb.png',
+    title: 'Arsa Adventures',
+    category: 'Landing Page',
+    description: 'Designed and developed a visually stunning landing page for Arsa Adventures, a company that offers adventure tourism services.',
+    tags: ['React'],
+    link: 'https://www.arsaadventures.com/',
+    colSpan: 'md:col-span-4'
   },
   {
-    image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    title: 'FinanceFlow App',
-    category: 'App Design',
-    description: 'Modern banking application with seamless user experience.',
+    image: 'https://res.cloudinary.com/dmip7daqc/image/upload/v1741936673/spike_wd5mng.jpg',
+    title: 'I Love Spikes',
+    category: 'E-commerce',
+    description: 'Branding and E-commerce website for I Love Spikes, a company that sells spikes.',
+    tags: ['React', 'Shopify'],
+    link: '#',
+    colSpan: 'md:col-span-2'
   },
   {
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    title: 'DataViz Dashboard',
-    category: 'UI/UX Design',
-    description: 'Data visualization dashboard for business analytics.',
+    image: 'https://res.cloudinary.com/dmip7daqc/image/upload/v1771151604/White_Illustrative_Real_Estate_Logo_f3ffhd.png',
+    title: 'Mahalakshmi Constructions',
+    category: 'Branding',
+    description: 'Complete visual identity redesign for a real estate company.',
+    tags: ['Figma', 'Illustrator', 'Canva'],
+    link: '#',
+    colSpan: 'md:col-span-3'
+  },
+  {
+    image: 'https://res.cloudinary.com/dmip7daqc/image/upload/v1771151895/Screenshot_2026-02-15_160737_estp9x.png',
+    title: 'FinCut',
+    category: 'SaaS Platform',
+    description: 'Collabrative expense management tool for small teams.',
+    tags: ['Next.js', 'PostgreSQL', 'Tailwind'],
+    link: '#',
+    colSpan: 'md:col-span-3'
   },
 ];
 
 const Portfolio = () => {
   return (
-    <section id="portfolio" className="py-24 bg-black">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Featured Works</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Explore our latest projects and see how we've helped businesses transform their digital presence.
-          </p>
+    <Section id="portfolio" className="bg-black">
+      <div className="mb-16 flex flex-col md:flex-row justify-between items-end gap-8">
+        <div>
+          <span className="text-purple-500 font-medium tracking-wider uppercase mb-2 block">Our Work</span>
+          <h2 className="text-4xl md:text-5xl font-bold font-playfair text-white">
+            Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Projects</span>
+          </h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <button className="bg-purple-500/10 border border-purple-500/30 px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-500/20 transition-all">
-            View All Projects
-          </button>
-        </div>
+        <button className="hidden md:flex items-center gap-2 text-white border-b border-purple-500 pb-1 hover:text-purple-400 transition-colors">
+          View All Projects <ArrowUpRight size={16} />
+        </button>
       </div>
-    </section>
+
+      <BentoGrid>
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className={`group relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 ${project.colSpan} min-h-[400px]`}
+          >
+            {/* Image Background */}
+            <div className="absolute inset-0">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-80 transition-opacity" />
+            </div>
+
+            {/* Content Overlay */}
+            <div className="relative z-10 h-full p-8 flex flex-col justify-end">
+              <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <span className="text-purple-400 text-sm font-medium mb-2 block">{project.category}</span>
+                <h3 className="text-2xl md:text-3xl font-bold font-playfair text-white mb-3">{project.title}</h3>
+                <p className="text-gray-300 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className="px-3 py-1 text-xs rounded-full bg-white/10 text-gray-200 border border-white/5 backdrop-blur-sm">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hover Link Icon */}
+              <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                <ArrowUpRight size={24} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </BentoGrid>
+
+      <div className="mt-12 text-center md:hidden">
+        <button className="inline-flex items-center gap-2 text-white border-b border-purple-500 pb-1">
+          View All Projects <ArrowUpRight size={16} />
+        </button>
+      </div>
+    </Section>
   );
 };
 

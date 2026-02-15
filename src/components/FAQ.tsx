@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
+import Section from './Section';
 
 interface FAQItemProps {
   question: string;
@@ -10,22 +11,28 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-800 last:border-b-0">
+    <div
+      className={`border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/10 border-white/20' : 'bg-white/5 hover:bg-white/10'
+        }`}
+    >
       <button
-        className="flex justify-between items-center w-full py-6 text-left"
+        className="flex justify-between items-center w-full p-6 text-left"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h3 className="text-xl font-semibold">{question}</h3>
-        <span className="text-purple-400">
-          {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        <h3 className={`text-lg font-semibold font-playfair transition-colors ${isOpen ? 'text-white' : 'text-gray-200'}`}>
+          {question}
+        </h3>
+        <span className={`flex-shrink-0 ml-4 p-2 rounded-full transition-colors ${isOpen ? 'bg-purple-500/20 text-purple-400' : 'bg-white/5 text-gray-400'}`}>
+          {isOpen ? <Minus size={16} /> : <Plus size={16} />}
         </span>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-96 pb-6' : 'max-h-0'
-        }`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
       >
-        <p className="text-gray-400">{answer}</p>
+        <div className="p-6 pt-0 text-gray-400 leading-relaxed border-t border-white/5 mt-2">
+          {answer}
+        </div>
       </div>
     </div>
   );
@@ -60,27 +67,20 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-black relative">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+    <Section id="faq" className="bg-black">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl font-bold mb-4 font-playfair text-white">Frequently Asked Questions</h2>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Everything you need to know about working with us.
+        </p>
       </div>
-      
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Find answers to common questions about our services and process.
-          </p>
-        </div>
 
-        <div className="max-w-3xl mx-auto bg-gray-900/30 backdrop-blur-sm rounded-2xl p-8 border border-purple-500/10">
-          {faqs.map((faq, index) => (
-            <FAQItem key={index} question={faq.question} answer={faq.answer} />
-          ))}
-        </div>
+      <div className="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq, index) => (
+          <FAQItem key={index} question={faq.question} answer={faq.answer} />
+        ))}
       </div>
-    </section>
+    </Section>
   );
 };
 
