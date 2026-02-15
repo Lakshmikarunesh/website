@@ -9,8 +9,9 @@
     scroll-behavior: smooth;
   }
 
+
   body {
-    @apply bg-black text-white font-inter overflow-x-hidden;
+    @apply bg-black text-white font-sans overflow-x-hidden;
     width: 100%;
     position: relative;
     background-image: linear-gradient(to bottom right, #000000, #0f0c29, #000000);
